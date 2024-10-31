@@ -1,10 +1,34 @@
 import { useState } from 'react';
+import Nav  from './Nav';
 import Allproducts from './Allproducts';
 import './App.css';
+
 import Cartcontainer from './Cartcontainer';
 
 function App() {
   const [selectedProducts, setSelectedProducts] = useState([]);
+
+  const [price,setPrice] = useState(500);
+
+  const handleInPrice =(pr) => {
+setPrice(price + pr);
+  }
+  
+  const handleDeletePrice =(id) => {
+const product = selectedProducts.find((p) =>p.id ==id);
+setPrice(price-product.price)
+
+
+  }
+  const handleDelete = (id) => {
+    handleDeletePrice(id)
+// console.log(id)
+const remainingProduct = selectedProducts.filter((p) => p.id!=id);
+setSelectedProducts(remainingProduct);
+
+
+  }
+
 
   const handleSelectedProduct = (product) => {
     const isexist =selectedProducts.find((p)=>p.id==product.id)
@@ -14,6 +38,8 @@ function App() {
     }
     else {
       // console.log("naiii")
+
+      handleInPrice(product.price)
       const newProducts = [...selectedProducts, product];
       setSelectedProducts(newProducts); // Corrected this line
     }
@@ -42,9 +68,10 @@ function App() {
 
   return (
     <>
+    <Nav selectedProducts={selectedProducts} price={price}></Nav>
       <div className="flex">
         <Allproducts handleSelectedProduct={handleSelectedProduct} />
-        <Cartcontainer isActive={isActive} handleIsActiveState={handleIsActiveState} />
+        <Cartcontainer handleDelete={handleDelete} selectedProducts={selectedProducts} isActive={isActive} handleIsActiveState={handleIsActiveState} />
       </div>
     </>
   );

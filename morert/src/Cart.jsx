@@ -1,9 +1,19 @@
 // import React from 'react';
-
-const Cart = () => {
+import './Cart.css'
+const Cart = ({ selectedProducts,handleDelete }) => {
+    // console.log(selectedProducts);
     return (
         <div>
-            <h1>helo</h1>
+            {selectedProducts.map((product) => (
+                <div className="m-4">
+                    <div>
+                        <img src={product.cover} className="img" alt="" />
+                        <p>{product.author}</p>
+                        <p>{product.price}</p>
+                        <button onClick={() =>handleDelete(product.id)} className='border-solid border-2 border-sky-500 bg-slate-500'>Delete</button>
+                    </div>
+                </div>
+            ))}
         </div>
     );
 };

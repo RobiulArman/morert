@@ -4,7 +4,7 @@ import About from './About';
 
 
 
-const Cartcontainer = ({ handleIsActiveState, isActive }) => {
+const Cartcontainer = ({ handleIsActiveState, isActive, selectedProducts,handleDelete}) => {
   console.log(isActive);
 
   return (
@@ -26,7 +26,7 @@ const Cartcontainer = ({ handleIsActiveState, isActive }) => {
         </div>
       </div>
       {
-        isActive.cart?<Cart></Cart>:<About></About>
+        isActive.cart?<Cart handleDelete={handleDelete} selectedProducts={selectedProducts}></Cart>:<About></About>
       }
     </div>
   );
